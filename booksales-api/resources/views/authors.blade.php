@@ -7,5 +7,16 @@
 </head>
 <body>
     
+    @foreach ($authors as $item)
+    <ul>
+        <li>{{$item['id'] }}</li>
+        <li>{{$item['name'] }}</li>
+        <li>{{$item['photo'] }}</li>
+        <li>{{$item['bio'] }}</li>
+    </ul>
+        
+    @endforeach
+
+
 </body>
 </html>

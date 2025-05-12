@@ -7,6 +7,15 @@
     </title>
 </head>
 <body>
+
+    @foreach ($genres as $item)
+    <ul>
+        <li>{{$item['id'] }}</li>
+        <li>{{$item['name'] }}</li>
+        <li>{{$item['description'] }}</li>
+    </ul>
+        
+    @endforeach
     
 </body>
 </html>
