@@ -7,12 +7,12 @@
 </head>
 <body>
     
-    @foreach ($authors as $item)
+    @foreach ($authors as $author)
     <ul>
-        <li>{{$item['id'] }}</li>
-        <li>{{$item['name'] }}</li>
-        <li>{{$item['photo'] }}</li>
-        <li>{{$item['bio'] }}</li>
+        <li>id: {{$author['id'] }}</li>
+        <li>name: {{$author['name'] }}</li>
+        <li>photo: {{$author['photo'] }}</li>
+        <li>bio: {{$author['bio'] }}</li>
     </ul>
         
     @endforeach

@@ -8,11 +8,11 @@
 </head>
 <body>
 
-    @foreach ($genres as $item)
+    @foreach ($genres as $genre)
     <ul>
-        <li>{{$item['id'] }}</li>
-        <li>{{$item['name'] }}</li>
-        <li>{{$item['description'] }}</li>
+        <li>id: {{$genre['id'] }}</li>
+        <li>name: {{$genre['name'] }}</li>
+        <li>description: {{$genre['description'] }}</li>
     </ul>
         
     @endforeach
