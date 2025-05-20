@@ -12,7 +12,14 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('/Author', [AuthorController::class, 'index']);
+Route::post('/Author', [AuthorController::class, 'store']);
+
+
 
 Route::get('/Genre', [GenreController::class, 'index']);
+Route::post('/Genre', [GenreController::class, 'store']);
+
+
 
 Route::get('/Book', [BookController::class, 'index']);
+Route::post('/Book', [BookController::class, 'store']);
