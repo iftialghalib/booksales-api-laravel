@@ -57,4 +57,79 @@ class GenreController extends Controller
             'data' => $genre
         ], 201);
     }
+
+    public function show(string $id)
+    {
+        $genre = Genre::find($id);
+
+        if (!$genre) {
+            return response()->json([
+                "success" => false,
+                "message" => "resources not found"
+            ], 404);
+        }
+
+        return response()->json([
+            "success" => true,
+            "message" => "Get resources detail",
+            "data" => $genre
+        ], 200);
+    }
+
+    public function update(string $id, Request $request)
+    {
+
+        $genre = Genre::find($id);
+
+        if (!$genre) {
+            return response()->json([
+                "success" => false,
+                "message" => "resources not found"
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:100',
+            'description' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()
+            ], 422);
+        }
+
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+        ];
+
+        $genre->update($data);
+
+        return response()->json([
+            "success" => true,
+            "message" => "resources updated",
+            "data" => $genre
+        ], 200);
+    }
+
+    public function destroy(string $id)
+    {
+        $genre = Genre::find($id);
+
+        if (!$genre) {
+            return response()->json([
+                "success" => false,
+                "message" => "resources not found"
+            ], 404);
+        }
+
+        $genre->delete();
+
+        return response()->json([
+            "success" => true,
+            "message" => "resources deleted",
+        ], 204);
+    }
 }
