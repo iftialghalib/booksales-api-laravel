@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
@@ -11,30 +12,24 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-// Route::get('/Author', [AuthorController::class, 'index']);
-// Route::post('/Author', [AuthorController::class, 'store']);
-// Route::get('/Author/{id}', [AuthorController::class, 'show']);
-// Route::post('/Author/{id}', [AuthorController::class, 'update']);
-// Route::delete('/Author/{id}', [AuthorController::class, 'destroy']);
+Route::post('/Register', [AuthController::class, 'register']);
+Route::post('/Login', [AuthController::class, 'login']);
+Route::post('/Logout', [AuthController::class, 'Logout'])->middleware('auth:api');
 
+Route::middleware(['auth:api', 'role:admin'])->get('/admin-test', function () {
+    return response()->json(['message' => 'Hello, Admin!']);
+});
 
+Route::apiResource('/Book', BookController::class)->only('index', 'show');
+Route::apiResource('/Genre', GenreController::class)->only('index', 'show');
+Route::apiResource('/Author', AuthorController::class)->only('index', 'show');
 
-// Route::get('/Genre', [GenreController::class, 'index']);
-// Route::post('/Genre', [GenreController::class, 'store']);
-// Route::get('/Genre/{id}', [GenreController::class, 'show']);
-// Route::post('/Genre/{id}', [GenreController::class, 'update']);
-// Route::delete('/Genre/{id}', [GenreController::class, 'destroy']);
+Route::middleware(['auth:api'])->group(function () {
 
+    Route::middleware(['role:admin'])->group(function () {
 
-
-// Route::get('/Book', [BookController::class, 'index']);
-// Route::post('/Book', [BookController::class, 'store']);
-// Route::get('/Book/{id}', [BookController::class, 'show']);
-// Route::post('/Book/{id}', [BookController::class, 'update']);
-// Route::delete('/Book/{id}', [BookController::class, 'destroy']);
-
-Route::apiResource('/Author', [AuthorController::class,]);
-Route::apiResource('/Genre', [AuthorController::class,]);
-Route::apiResource('/Book', [AuthorController::class,]);
-
-
+        Route::apiResource('/Book', BookController::class)->only('store', 'update', 'destroy');
+        Route::apiResource('/Genre', GenreController::class)->only('store', 'update', 'destroy');
+        Route::apiResource('/Author', AuthorController::class)->only('store', 'update', 'destroy');
+    });
+});
