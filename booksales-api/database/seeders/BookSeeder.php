@@ -49,7 +49,7 @@ class BookSeeder extends Seeder
             'price' => 48000.00,
             'stock' => 35,
             'cover' => 'orient_express.jpg',
-            'genre_id' => 4,
+            'genre_id' => 3,
             'author_id' => 4
         ]);
 
@@ -59,7 +59,7 @@ class BookSeeder extends Seeder
             'price' => 58000.00,
             'stock' => 40,
             'cover' => 'da_vinci_code.jpg',
-            'genre_id' => 5,
+            'genre_id' => 2,
             'author_id' => 5  
         ]);
 
